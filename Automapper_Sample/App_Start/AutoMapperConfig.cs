@@ -36,12 +36,14 @@ namespace Automapper_Sample.App_Start
                     .ForMember(dest => dest.Id, opts => opts.MapFrom(src => src.Person_Id))
                     .ForMember(dest => dest.GivenName, opts => opts.MapFrom(src => src.Person_FirstName))
                     .ForMember(dest => dest.SurName, opts => opts.MapFrom(src => src.Person_LastName))
-                    .ForMember(dest => dest.Country, opts => opts.MapFrom(src => src.Person_Country));
-
-
+                    .ForMember(dest => dest.Country, opts => opts.MapFrom(src => src.Person_Country))
+                    .ForMember(dest => dest.Countries, opts => opts.Ignore());
 
             });
 
+
+            config.AssertConfigurationIsValid(); //This will bite you later if you don't call it.
+  
             return config.CreateMapper();
         }
     }
